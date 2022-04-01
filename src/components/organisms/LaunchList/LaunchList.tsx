@@ -1,28 +1,27 @@
 import { LaunchItem } from '@components/molecules/LaunchItem'
-import { useRef } from 'react'
-import { useIntersection } from 'react-use'
+import { useInfiniteObserver, useLaunches } from '@hooks'
+import { useEffect } from 'react'
 
-interface ILaunchList {
-  launches: any[]
-}
+export const LaunchList = () => {
+  const { launches, fetchNext } = useLaunches({ fetchLimit: 10 })
+  const { lastElementRef } = useInfiniteObserver({ onIntersection: fetchNext })
 
-export const LaunchList = ({ launches }: ILaunchList) => {
-  const lastCardRef = useRef(null)
-  const intersection = useIntersection(lastCardRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1,
-  })
+  useEffect(() => {
+    if (!launches?.length) {
+      fetchNext()
+    }
+  }, [])
 
   return (
-    <div className="flex flex-col items-center flex-1">
-      {launches.map((launch: any, idx) => {
+    <div className="flex min-h-[100%] flex-1 flex-col items-center">
+      {launches?.map((launch, idx) => {
         return (
           <LaunchItem
-            key={launch.name}
-            description={launch.details}
-            image={'/images/default.jpg'}
-            title={launch.name}
+            ref={idx === launches.length - 3 ? lastElementRef : null}
+            key={launch?.mission_name}
+            description={launch?.details}
+            image={launch?.links?.flickr_images?.at(0) || '/images/default.jpg'}
+            title={launch?.mission_name || 'Unnamed launch'}
           />
         )
       })}
