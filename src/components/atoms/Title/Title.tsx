@@ -5,5 +5,7 @@ interface ITtileProps {
 }
 
 export const Title = ({ children }: ITtileProps) => {
-  return <h3>{children}</h3>
+  return (
+    <h3 className="text-xl font-semibold text-left text-white">{children}</h3>
+  )
 }
