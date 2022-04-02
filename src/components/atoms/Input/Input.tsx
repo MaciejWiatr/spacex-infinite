@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { forwardRef, InputHTMLAttributes, LegacyRef } from 'react'
 
 export const Input = forwardRef(

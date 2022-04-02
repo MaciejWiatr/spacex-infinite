@@ -13,6 +13,7 @@ export const WideImage = ({ src }: IWideImageProps) => {
         layout="fill"
         placeholder="blur"
         blurDataURL="/images/default.jpg"
+        alt="Launch image"
       />
     </div>
   )

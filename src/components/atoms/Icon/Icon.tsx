@@ -5,5 +5,5 @@ interface IIconProps {
 }
 
 export const Icon = ({ src }: IIconProps) => {
-  return <Image src={src} width={20} height={20} />
+  return <Image src={src} width={20} height={20} alt="icon" />
 }

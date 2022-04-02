@@ -11,10 +11,11 @@ export const LaunchList = () => {
     if (!launches?.length) {
       fetchNext()
     }
-  }, [])
+  }, [fetchNext, launches?.length])
 
   return (
     <div className="flex flex-col items-center flex-1 min-h-80vh">
+      {isLoading && <div className="text-center">Loading...</div>}
       {launches?.map((launch, idx) => {
         return (
           <LaunchItem

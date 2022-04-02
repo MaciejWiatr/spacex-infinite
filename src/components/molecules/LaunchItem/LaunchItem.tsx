@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { Button } from '@components/atoms/Button'
 import { Description } from '@components/atoms/Description'
 import { Icon } from '@components/atoms/Icon'
