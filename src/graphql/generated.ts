@@ -1334,7 +1334,7 @@ export type GetLaunchQueryVariables = Exact<{
 }>;
 
 
-export type GetLaunchQuery = { __typename?: 'Query', launch?: { __typename?: 'Launch', mission_name?: string | null, launch_success?: boolean | null, details?: string | null, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null, rocket_type?: string | null } | null, links?: { __typename?: 'LaunchLinks', flickr_images?: Array<string | null> | null, article_link?: string | null } | null } | null };
+export type GetLaunchQuery = { __typename?: 'Query', launch?: { __typename?: 'Launch', mission_name?: string | null, launch_success?: boolean | null, launch_date_local?: any | null, details?: string | null, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null, rocket_type?: string | null } | null, links?: { __typename?: 'LaunchLinks', flickr_images?: Array<string | null> | null, article_link?: string | null } | null } | null };
 
 
 export const GetLaunchesDocument = gql`
@@ -1383,6 +1383,7 @@ export const GetLaunchDocument = gql`
     }
     mission_name
     launch_success
+    launch_date_local
     links {
       flickr_images
       article_link

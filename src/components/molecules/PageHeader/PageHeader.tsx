@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { PageIcon } from '../../atoms/page/PageIcon'
 import { PageSubtitle } from '../../atoms/page/PageSubtitle'
 import { PageTitle } from '../../atoms/page/PageTitle'
@@ -10,9 +11,11 @@ export const PageHeader = () => {
         <div className="flex items-center justify-center">
           <PageIcon />
         </div>
-        <div>
-          <PageTitle />
-          <PageSubtitle />
+        <div className="text-center md:text-left">
+          <PageTitle>SpaceX Launches</PageTitle>
+          <PageSubtitle>
+            A (super)non official platform for SpaceX's data!
+          </PageSubtitle>
         </div>
       </div>
       <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-gray-800 to-transparent" />

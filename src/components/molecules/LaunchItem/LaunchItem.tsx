@@ -4,7 +4,7 @@ import { Button } from '@components/atoms/Button'
 import { Description } from '@components/atoms/Description'
 import { Icon } from '@components/atoms/Icon'
 import { Title } from '@components/atoms/Title'
-import { WideImage } from '@components/atoms/WideImage'
+import { ArticleImage } from '@components/atoms/ArticleImage'
 import { getFormattedLaunchDate } from '@utils'
 import Link from 'next/link'
 import { forwardRef, LegacyRef } from 'react'
@@ -19,13 +19,7 @@ interface ILaunchItem {
 
 export const LaunchItem = forwardRef(
   (
-    {
-      description,
-      image = '/images/default.png',
-      title,
-      id,
-      date,
-    }: ILaunchItem,
+    { description, image, title, id, date }: ILaunchItem,
     ref: LegacyRef<HTMLDivElement>
   ) => {
     const formattedDate = getFormattedLaunchDate(date)
@@ -43,7 +37,7 @@ export const LaunchItem = forwardRef(
           <AccentText>{formattedDate}</AccentText>
           <Description>{description}</Description>
         </div>
-        <WideImage src={image} />
+        <ArticleImage src={image} />
         <Link href={`launch/${id}`} passHref>
           <a>
             <Button>Read more</Button>

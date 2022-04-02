@@ -51,6 +51,7 @@ export const GET_LAUNCH_DETIALS_QUERY = gql`
       }
       mission_name
       launch_success
+      launch_date_local
       links {
         flickr_images
         article_link
