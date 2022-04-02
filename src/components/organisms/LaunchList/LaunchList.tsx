@@ -1,9 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
+import { Footer } from '@components/molecules/Footer'
 import { LaunchItem } from '@components/molecules/LaunchItem'
 import { useInfiniteObserver } from '@hooks'
 import { useLaunchesContext } from '@hooks/useLaunchesContext'
 
 export const LaunchList = () => {
-  const { launches, fetchNext, isLoading } = useLaunchesContext()
+  const { launches, fetchNext, isLoading, reachedEnd } = useLaunchesContext()
   const { lastElementRef } = useInfiniteObserver({ onIntersection: fetchNext })
 
   return (
@@ -22,6 +24,7 @@ export const LaunchList = () => {
           />
         )
       })}
+      {reachedEnd && <Footer />}
     </div>
   )
 }

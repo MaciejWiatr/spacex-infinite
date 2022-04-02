@@ -7,6 +7,7 @@ export const LaunchesContext = createContext({
   fetchNext: (invokedBy: string) => {},
   search: (query: string) => {},
   isLoading: false,
+  reachedEnd: false,
 })
 
 interface ILaunchesProviderProps {
