@@ -19,7 +19,7 @@ export const LaunchList = () => {
             key={launch?.mission_name}
             description={launch?.details}
             date={launch?.launch_date_local}
-            image={launch?.links?.flickr_images?.at(0)}
+            image={launch?.links?.flickr_images?.[0]}
             title={launch?.mission_name || 'Unnamed launch'}
           />
         )
