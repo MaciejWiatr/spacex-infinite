@@ -51,7 +51,7 @@ const LaunchPage = ({ launch }: ILaunchPageProps) => {
 
         {launch?.links?.article_link ? (
           <Link href={launch?.links?.article_link || '/'}>
-            <a className="w-full">
+            <a className="w-full" data-cy="article-link">
               <Button isWide>Read full article</Button>
             </a>
           </Link>

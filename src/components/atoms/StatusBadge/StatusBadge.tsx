@@ -9,6 +9,7 @@ interface IStatusBadgeProps {
 export const StatusBadge = ({ status, children }: IStatusBadgeProps) => {
   return (
     <div
+      data-cy="status-badge"
       className={cls(
         'w-max rounded-full border py-2 px-3 font-semibold text-white',
         {
