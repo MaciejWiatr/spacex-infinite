@@ -8,35 +8,30 @@ export const useLaunches = ({ fetchLimit = 10 }) => {
   const [searchQuery, setSearhQuery] = useState<string>('')
   const [reachedEnd, setReachedEnd] = useState(false)
 
-  const fetchNext = useCallback(
-    async (invokedBy: string) => {
-      // Avoid unnescessary fetches
-      if (reachedEnd || isLoading) return
-      console.log(`fetchNext invoked by ${invokedBy}`)
+  const fetchNext = useCallback(async () => {
+    // Avoid unnescessary fetches
+    if (reachedEnd || isLoading) return
 
-      setLoading(true)
+    setLoading(true)
 
-      const { launchesPast: newLaunches } = await gqClient.GetLaunches({
-        limit: fetchLimit,
-        offset: launches?.length,
-        search: searchQuery,
-      })
+    const { launchesPast: newLaunches } = await gqClient.GetLaunches({
+      limit: fetchLimit,
+      offset: launches?.length,
+      search: searchQuery,
+    })
 
-      setLoading(false)
+    setLoading(false)
 
-      // if there are no more launches, set reachedEnd to true
-      if (newLaunches && newLaunches.length <= 0) {
-        setReachedEnd(true)
-        return
-      }
+    // if there are no more launches, set reachedEnd to true
+    if (newLaunches && newLaunches.length <= 0) {
+      setReachedEnd(true)
+      return
+    }
 
-      if (Array.isArray(launches) && Array.isArray(newLaunches)) {
-        setLaunches([...launches, ...newLaunches])
-      }
-    },
-
-    [reachedEnd, isLoading, fetchLimit, launches, searchQuery]
-  )
+    if (Array.isArray(launches) && Array.isArray(newLaunches)) {
+      setLaunches([...launches, ...newLaunches])
+    }
+  }, [reachedEnd, isLoading, fetchLimit, launches, searchQuery])
 
   const resetState = useCallback(() => {
     setLaunches([])
@@ -51,7 +46,7 @@ export const useLaunches = ({ fetchLimit = 10 }) => {
   useEffect(() => {
     // fetch first batch of launches
     if (launches?.length === 0) {
-      fetchNext('search query change')
+      fetchNext()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, launches?.length])
