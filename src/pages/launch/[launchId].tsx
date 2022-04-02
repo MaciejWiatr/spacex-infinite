@@ -20,7 +20,7 @@ const LaunchPage = ({ launch }: ILaunchPageProps) => {
     <div className="relative">
       <div className="relative object-cover w-full h-48 overflow-hidden rounded-b-lg">
         <Image
-          src={launch?.links?.flickr_images?.at(0) || DEFAULT_IMAGE}
+          src={launch?.links?.flickr_images?.[0] || DEFAULT_IMAGE}
           layout="fill"
           alt={`Launch ${launch?.mission_name} image`}
           className={'object-cover'}
