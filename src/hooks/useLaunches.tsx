@@ -1,5 +1,4 @@
-import { GetLaunchesResp, getSdk } from '@graphql'
-import { GQLCient } from '@lib'
+import { GetLaunchesResp, gqClient } from '@graphql'
 import { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 
@@ -8,16 +7,16 @@ export const useLaunches = ({ fetchLimit = 10 }) => {
   const [launches, setLaunches] = useState<GetLaunchesResp>([])
   const [searchQuery, setSearhQuery] = useState<string>('')
   const [reachedEnd, setReachedEnd] = useState(false)
-  const sdk = getSdk(GQLCient)
 
   const fetchNext = useCallback(
     async (invokedBy: string) => {
+      // Avoid unnescessary fetches
       if (reachedEnd || isLoading) return
       console.log(`fetchNext invoked by ${invokedBy}`)
 
       setLoading(true)
 
-      const { launchesPast: newLaunches } = await sdk.GetLaunches({
+      const { launchesPast: newLaunches } = await gqClient.GetLaunches({
         limit: fetchLimit,
         offset: launches?.length,
         search: searchQuery,
@@ -36,16 +35,21 @@ export const useLaunches = ({ fetchLimit = 10 }) => {
       }
     },
 
-    [reachedEnd, isLoading, sdk, fetchLimit, launches, searchQuery]
+    [reachedEnd, isLoading, fetchLimit, launches, searchQuery]
   )
 
-  const search = async (query: string) => {
+  const resetState = useCallback(() => {
     setLaunches([])
     setReachedEnd(false)
+  }, [])
+
+  const search = async (query: string) => {
+    resetState()
     setSearhQuery(query)
   }
 
   useEffect(() => {
+    // fetch first batch of launches
     if (launches?.length === 0) {
       fetchNext('search query change')
     }

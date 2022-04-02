@@ -4,8 +4,7 @@ import { PageSubtitle } from '@components/atoms/page/PageSubtitle'
 import { PageTitle } from '@components/atoms/page/PageTitle'
 import { StatusBadge } from '@components/atoms/StatusBadge'
 import { DEFAULT_IMAGE } from '@constants'
-import { GetLaunchResp, getSdk } from '@graphql'
-import { GQLCient } from '@lib'
+import { GetLaunchResp, gqClient } from '@graphql'
 import { getFormattedLaunchDate } from '@utils'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
@@ -71,9 +70,8 @@ interface ILaunchPageParams extends ParsedUrlQuery {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const sdk = getSdk(GQLCient)
   const { launchId } = context.params as ILaunchPageParams
-  const resp = await sdk.GetLaunch({ launchId })
+  const resp = await gqClient.GetLaunch({ launchId })
 
   return {
     props: {
