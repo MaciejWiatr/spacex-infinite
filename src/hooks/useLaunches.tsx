@@ -1,8 +1,9 @@
+import { DEFAULT_FETCH_LIMIT } from '@constants'
 import { GetLaunchesResp, gqClient } from '@graphql'
 import { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 
-export const useLaunches = ({ fetchLimit = 10 }) => {
+export const useLaunches = ({ fetchLimit = DEFAULT_FETCH_LIMIT }) => {
   const [isLoading, setLoading] = useState(false)
   const [launches, setLaunches] = useState<GetLaunchesResp>([])
   const [searchQuery, setSearhQuery] = useState<string>('')
