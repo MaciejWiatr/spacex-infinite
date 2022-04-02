@@ -1,9 +1,10 @@
 import { LaunchItem } from '@components/molecules/LaunchItem'
-import { useInfiniteObserver, useLaunches } from '@hooks'
+import { useInfiniteObserver } from '@hooks'
+import { useLaunchesContext } from '@hooks/useLaunchesContext'
 import { useEffect } from 'react'
 
 export const LaunchList = () => {
-  const { launches, fetchNext } = useLaunches({ fetchLimit: 10 })
+  const { launches, fetchNext, isLoading } = useLaunchesContext()
   const { lastElementRef } = useInfiniteObserver({ onIntersection: fetchNext })
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export const LaunchList = () => {
   }, [])
 
   return (
-    <div className="flex min-h-[100%] flex-1 flex-col items-center">
+    <div className="flex flex-col items-center flex-1 min-h-80vh">
       {launches?.map((launch, idx) => {
         return (
           <LaunchItem

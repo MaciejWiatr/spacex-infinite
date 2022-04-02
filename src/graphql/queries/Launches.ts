@@ -1,8 +1,12 @@
 import { gql } from 'graphql-request'
 
 export const LAUNCHES_QUERY = gql`
-  query GetLaunches($limit: Int, $offset: Int) {
-    launchesPast(limit: $limit, offset: $offset) {
+  query GetLaunches($limit: Int, $offset: Int, $search: String) {
+    launchesPast(
+      limit: $limit
+      offset: $offset
+      find: { mission_name: $search }
+    ) {
       mission_name
       details
       launch_date_local

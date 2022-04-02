@@ -6,8 +6,14 @@ interface IWideImageProps {
 
 export const WideImage = ({ src }: IWideImageProps) => {
   return (
-    <div className="relative object-cover w-full my-2 overflow-hidden rounded-lg h-36">
-      <Image className="object-cover" src={src} layout="fill" />
+    <div className="relative object-cover w-full my-2 overflow-hidden transition-all duration-300 rounded-lg h-36 hover:h-64">
+      <Image
+        className="object-cover"
+        src={src}
+        layout="fill"
+        placeholder="blur"
+        blurDataURL="/images/default.jpg"
+      />
     </div>
   )
 }

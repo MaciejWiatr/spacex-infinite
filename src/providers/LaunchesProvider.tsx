@@ -5,6 +5,8 @@ import { createContext, ReactNode } from 'react'
 export const LaunchesContext = createContext({
   launches: [] as GetLaunchesResp,
   fetchNext: () => {},
+  search: (query: string) => {},
+  isLoading: false,
 })
 
 interface ILaunchesProviderProps {

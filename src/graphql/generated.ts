@@ -1323,6 +1323,7 @@ export type Uuid_Comparison_Exp = {
 export type GetLaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -1330,8 +1331,8 @@ export type GetLaunchesQuery = { __typename?: 'Query', launchesPast?: Array<{ __
 
 
 export const GetLaunchesDocument = gql`
-    query GetLaunches($limit: Int, $offset: Int) {
-  launchesPast(limit: $limit, offset: $offset) {
+    query GetLaunches($limit: Int, $offset: Int, $search: String) {
+  launchesPast(limit: $limit, offset: $offset, find: {mission_name: $search}) {
     mission_name
     details
     launch_date_local
