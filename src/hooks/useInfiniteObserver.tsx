@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 
 interface IUseInfinitescrollProps {
-  onIntersection: () => void
+  onIntersection: (args: any) => void
 }
 
 export const useInfiniteObserver = ({
@@ -13,11 +13,11 @@ export const useInfiniteObserver = ({
   useEffect(() => {
     const options = {
       root: document,
-      threshold: 1,
+      threshold: 0.5,
     }
     const callback = (entries: any[]) => {
       if (entries[0].isIntersecting) {
-        onIntersection()
+        onIntersection('infinite scroll')
       }
     }
     observer.current = new IntersectionObserver(callback, options)

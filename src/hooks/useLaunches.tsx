@@ -1,35 +1,56 @@
 import { GetLaunchesResp, getSdk } from '@graphql'
-import { GraphQLClient } from 'graphql-request'
-import { useEffect } from 'react'
+import { GQLCient } from '@lib'
+import { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 
 export const useLaunches = ({ fetchLimit = 10 }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false)
   const [launches, setLaunches] = useState<GetLaunchesResp>([])
   const [searchQuery, setSearhQuery] = useState<string>('')
-  const client = new GraphQLClient('https://api.spacex.land/graphql/')
-  const sdk = getSdk(client)
+  const [reachedEnd, setReachedEnd] = useState(false)
+  const sdk = getSdk(GQLCient)
 
-  const fetchNext = async () => {
-    setIsLoading(true)
-    const { launchesPast } = await sdk.GetLaunches({
-      limit: fetchLimit,
-      offset: launches?.length || 0,
-      search: searchQuery,
-    })
-    setIsLoading(false)
-    if (!launchesPast) return
-    setLaunches((prev) => [...(prev || []), ...launchesPast])
-  }
+  const fetchNext = useCallback(
+    async (invokedBy: string) => {
+      if (reachedEnd || isLoading) return
+      console.log(`fetchNext invoked by ${invokedBy}`)
 
-  const search = (query: string) => {
+      setLoading(true)
+
+      const { launchesPast: newLaunches } = await sdk.GetLaunches({
+        limit: fetchLimit,
+        offset: launches?.length,
+        search: searchQuery,
+      })
+
+      setLoading(false)
+
+      // if there are no more launches, set reachedEnd to true
+      if (newLaunches && newLaunches.length <= 0) {
+        setReachedEnd(true)
+        return
+      }
+
+      if (Array.isArray(launches) && Array.isArray(newLaunches)) {
+        setLaunches([...launches, ...newLaunches])
+      }
+    },
+
+    [reachedEnd, isLoading, sdk, fetchLimit, launches, searchQuery]
+  )
+
+  const search = async (query: string) => {
     setLaunches([])
+    setReachedEnd(false)
     setSearhQuery(query)
   }
 
   useEffect(() => {
-    fetchNext()
-  }, [searchQuery])
+    if (launches?.length === 0) {
+      fetchNext('search query change')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, launches?.length])
 
-  return { fetchNext, launches, search, isLoading }
+  return { fetchNext, launches, search, isLoading, reachedEnd }
 }

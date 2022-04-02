@@ -1327,12 +1327,20 @@ export type GetLaunchesQueryVariables = Exact<{
 }>;
 
 
-export type GetLaunchesQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', mission_name?: string | null, details?: string | null, launch_date_local?: any | null, launch_site?: { __typename?: 'LaunchSite', site_name_long?: string | null } | null, links?: { __typename?: 'LaunchLinks', article_link?: string | null, video_link?: string | null, flickr_images?: Array<string | null> | null } | null, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null, first_stage?: { __typename?: 'LaunchRocketFirstStage', cores?: Array<{ __typename?: 'LaunchRocketFirstStageCore', flight?: number | null, core?: { __typename?: 'Core', reuse_count?: number | null, status?: string | null } | null } | null> | null } | null, second_stage?: { __typename?: 'LaunchRocketSecondStage', payloads?: Array<{ __typename?: 'Payload', payload_type?: string | null, payload_mass_kg?: number | null, payload_mass_lbs?: number | null } | null> | null } | null } | null } | null> | null };
+export type GetLaunchesQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', id?: string | null, mission_name?: string | null, details?: string | null, launch_date_local?: any | null, launch_site?: { __typename?: 'LaunchSite', site_name_long?: string | null } | null, links?: { __typename?: 'LaunchLinks', article_link?: string | null, video_link?: string | null, flickr_images?: Array<string | null> | null } | null, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null, first_stage?: { __typename?: 'LaunchRocketFirstStage', cores?: Array<{ __typename?: 'LaunchRocketFirstStageCore', flight?: number | null, core?: { __typename?: 'Core', reuse_count?: number | null, status?: string | null } | null } | null> | null } | null, second_stage?: { __typename?: 'LaunchRocketSecondStage', payloads?: Array<{ __typename?: 'Payload', payload_type?: string | null, payload_mass_kg?: number | null, payload_mass_lbs?: number | null } | null> | null } | null } | null } | null> | null };
+
+export type GetLaunchQueryVariables = Exact<{
+  launchId: Scalars['ID'];
+}>;
+
+
+export type GetLaunchQuery = { __typename?: 'Query', launch?: { __typename?: 'Launch', mission_name?: string | null, launch_success?: boolean | null, details?: string | null, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null, rocket_type?: string | null } | null, links?: { __typename?: 'LaunchLinks', flickr_images?: Array<string | null> | null, article_link?: string | null } | null } | null };
 
 
 export const GetLaunchesDocument = gql`
     query GetLaunches($limit: Int, $offset: Int, $search: String) {
   launchesPast(limit: $limit, offset: $offset, find: {mission_name: $search}) {
+    id
     mission_name
     details
     launch_date_local
@@ -1366,6 +1374,23 @@ export const GetLaunchesDocument = gql`
   }
 }
     `;
+export const GetLaunchDocument = gql`
+    query GetLaunch($launchId: ID!) {
+  launch(id: $launchId) {
+    rocket {
+      rocket_name
+      rocket_type
+    }
+    mission_name
+    launch_success
+    links {
+      flickr_images
+      article_link
+    }
+    details
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1376,6 +1401,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     GetLaunches(variables?: GetLaunchesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLaunchesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLaunchesQuery>(GetLaunchesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLaunches', 'query');
+    },
+    GetLaunch(variables: GetLaunchQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLaunchQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetLaunchQuery>(GetLaunchDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLaunch', 'query');
     }
   };
 }

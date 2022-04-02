@@ -1,12 +1,13 @@
 import { gql } from 'graphql-request'
 
-export const LAUNCHES_QUERY = gql`
+export const GET_LAUNCHES_QUERY = gql`
   query GetLaunches($limit: Int, $offset: Int, $search: String) {
     launchesPast(
       limit: $limit
       offset: $offset
       find: { mission_name: $search }
     ) {
+      id
       mission_name
       details
       launch_date_local
@@ -37,6 +38,24 @@ export const LAUNCHES_QUERY = gql`
           }
         }
       }
+    }
+  }
+`
+
+export const GET_LAUNCH_DETIALS_QUERY = gql`
+  query GetLaunch($launchId: ID!) {
+    launch(id: $launchId) {
+      rocket {
+        rocket_name
+        rocket_type
+      }
+      mission_name
+      launch_success
+      links {
+        flickr_images
+        article_link
+      }
+      details
     }
   }
 `

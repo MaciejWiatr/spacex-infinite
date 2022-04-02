@@ -4,7 +4,7 @@ import { createContext, ReactNode } from 'react'
 
 export const LaunchesContext = createContext({
   launches: [] as GetLaunchesResp,
-  fetchNext: () => {},
+  fetchNext: (invokedBy: string) => {},
   search: (query: string) => {},
   isLoading: false,
 })

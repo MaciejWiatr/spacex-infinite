@@ -3,7 +3,7 @@ import { useLaunchesContext } from '@hooks/useLaunchesContext'
 import { FormEvent, useRef } from 'react'
 
 export const SearchForm = () => {
-  const { search } = useLaunchesContext()
+  const { search, fetchNext } = useLaunchesContext()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
