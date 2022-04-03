@@ -1,23 +1,66 @@
-# Next.js + Tailwind CSS Example
+![app img](https://i.imgur.com/NrKDbEA.png)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# SpaceX infinite scroll 🌠
 
-## Deploy your own
+Infinite scroll App made with React/Next.js and SpaceX GraphQL API
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Demo
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+https://spacex-infinite.vercel.app/
 
-## How to use
+## Features
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+- Infinite scroll (duh)
+- GraphQL API Fetching with graphql-request library
+- SSR-based launch details page
+- E2E Tests with Cypress.io
+- Sleek design system buildt with Tailwind.css
+- Auto-generated GraphQL types and client using graphql-codegen
+- Plop.js-based component scaffolding
+- Responsive UI
+- Loading indicator
+- _Samsung internet and Safari compatibility (learned it the hard way)_
+
+## Installation
+
+Install my-project with npm
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
+npm install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### Run tests
+
+```bash
+npm run test:prod
+```
+
+### Run development server
+
+```bash
+npm run dev
+```
+
+### Things I've learned while building this project
+
+- Basics of atomic design
+- That the Samsung internet and Safari are the 21st century internet explorers
+
+### Problems I had to solve
+
+**Infinite scrolling mixed with search caused a lot of unnecessary re-renders and api calls**
+
+- had to deeply investigate scenarios in which function fetchNext() was invoked, it led me to conclusion that my code have fetch loop problems which I fixed by optimizing useLaunches hook and avoiding unnecessary calls to fetchNext() function outside the useLaunches
+
+**Safari and samsung internet compatibility**
+
+- My friend let me know that my app crashes on his phone and as it later turned out both Samsung and Apple had this issue. I jumped into the IOS simulator on browserstack.com and successfully replicated the issue. The problem was the usage of Array.at() which is apparently not supported on apple nor Samsung, after removing it everything went back to normal.
+
+## Screenshots
+
+![App Screenshot](https://i.imgur.com/kUMFkss.png)
+![Mobile screenshots](https://i.imgur.com/v4eYwuQ.png)
+
+#### Post scriptum
+
+_Only cool programmers are able to click on the button placed in the footer..._
