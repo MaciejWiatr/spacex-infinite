@@ -9,8 +9,8 @@
     "gen:graphql": "graphql-codegen --config codegen.yml",
     "e2e": "cypress run --headless",
     "e2e:gui": "cypress open",
-    "test:dev": "start-server-and-test 'yarn dev' http://localhost:3000 'yarn e2e:gui'",
-    "test:prod": "yarn build && start-server-and-test start http://localhost:3000 'yarn e2e'"
+    "test:dev": "start-server-and-test 'npm run dev' http://localhost:3000 'npm run e2e:gui'",
+    "test:prod": "npm run build && start-server-and-test start http://localhost:3000 'npm run e2e'"
   },
   "dependencies": {
     "@graphql-codegen/typescript-graphql-request": "^4.4.5",
