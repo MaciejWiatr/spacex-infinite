@@ -25,3 +25,5 @@ context('Details page', () => {
     cy.getArticleLink().should('not.exist')
   })
 })
+
+export {}
