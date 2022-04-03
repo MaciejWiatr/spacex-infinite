@@ -1,4 +1,3 @@
-// @ts-nocheck
 context('Home page', () => {
   beforeEach(() => {
     cy.mockGraphqlResp('GetLaunches', 'launchesPast', 'launchesPast')
@@ -25,3 +24,5 @@ context('Home page', () => {
       .should('have.length', 10)
   })
 })
+
+export {}

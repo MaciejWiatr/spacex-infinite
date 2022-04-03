@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 context('Details page', () => {
   const normalLaunchId = 108
   const failedLaunchId = 1
