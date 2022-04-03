@@ -5,7 +5,7 @@ import { Description } from '@components/atoms/Description'
 import { Icon } from '@components/atoms/Icon'
 import { Title } from '@components/atoms/Title'
 import { ArticleImage } from '@components/atoms/ArticleImage'
-import { getFormattedLaunchDate } from '@utils'
+import { getFormattedLaunchDate, textLimit } from '@utils'
 import Link from 'next/link'
 import { forwardRef, LegacyRef } from 'react'
 
@@ -23,6 +23,7 @@ export const LaunchItem = forwardRef(
     ref: LegacyRef<HTMLDivElement>
   ) => {
     const formattedDate = getFormattedLaunchDate(date)
+    const limitedDescription = textLimit(description)
 
     return (
       <div
@@ -30,13 +31,13 @@ export const LaunchItem = forwardRef(
         className="relative w-[80%] border-l-2 border-l-gray-600 py-12 pl-12 text-left hover:cursor-pointer"
         data-cy={`item-${id}`}
       >
-        <div className="absolute flex items-center justify-center w-8 h-8 my-auto bg-white rounded-full -left-4">
+        <div className="absolute -left-4 my-auto flex h-8 w-8 items-center justify-center rounded-full bg-white">
           <Icon src={'/images/rocket-icon.png'} />
         </div>
         <div>
           <Title>{title}</Title>
           <AccentText>{formattedDate}</AccentText>
-          <Description>{description}</Description>
+          <Description>{limitedDescription}</Description>
         </div>
         <ArticleImage src={image} />
         <Link href={`launch/${id}`} passHref>
