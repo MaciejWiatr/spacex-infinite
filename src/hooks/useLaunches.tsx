@@ -29,6 +29,7 @@ export const useLaunches = ({ fetchLimit = DEFAULT_FETCH_LIMIT }) => {
       return
     }
 
+    // Merges new launches with existing ones
     if (Array.isArray(launches) && Array.isArray(newLaunches)) {
       setLaunches([...launches, ...newLaunches])
     }
@@ -44,8 +45,9 @@ export const useLaunches = ({ fetchLimit = DEFAULT_FETCH_LIMIT }) => {
     setSearhQuery(query)
   }
 
+  // This will run on initial render or when the search query changes
   useEffect(() => {
-    // fetch first batch of launches
+    // Makes sure that the state was properly reset
     if (launches?.length === 0) {
       fetchNext()
     }

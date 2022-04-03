@@ -3,7 +3,7 @@ import { useLaunchesContext } from '@hooks/useLaunchesContext'
 import { FormEvent, useRef } from 'react'
 
 export const SearchForm = () => {
-  const { search, fetchNext } = useLaunchesContext()
+  const { search } = useLaunchesContext()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -14,7 +14,7 @@ export const SearchForm = () => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex justify-center py-4 mb-4">
+    <form onSubmit={onSubmit} className="mb-4 flex justify-center py-4">
       <Input ref={inputRef} placeholder="Search by mission name" />
     </form>
   )

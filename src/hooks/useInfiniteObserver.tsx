@@ -2,34 +2,49 @@ import { useRef, useEffect } from 'react'
 
 interface IUseInfinitescrollProps {
   onIntersection: () => void
+  options?: {
+    root: Document | HTMLElement | null
+    threshold: number
+  }
 }
 
 export const useInfiniteObserver = ({
   onIntersection,
+  options,
 }: IUseInfinitescrollProps) => {
+  // Holds reference to the observed element
   const lastElementRef = useRef(null)
-  const observer = useRef<IntersectionObserver | null>(null)
+  const observerInstance = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
-    const options = {
-      root: document,
-      threshold: 0.5,
+    const observerOptions = {
+      root: options?.root || document,
+      threshold: options?.threshold || 0.5,
     }
-    const callback = (entries: any[]) => {
+
+    const observerCallback = (entries: any[]) => {
       if (entries[0].isIntersecting) {
         onIntersection()
       }
     }
-    observer.current = new IntersectionObserver(callback, options)
+
+    observerInstance.current = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    )
+
+    // If element was correctly set up, start observing
     if (lastElementRef.current) {
-      observer.current.observe(lastElementRef.current)
+      observerInstance.current.observe(lastElementRef.current)
     }
+
+    // Remove observer on unmount
     return () => {
-      if (observer.current) {
-        observer.current.disconnect()
+      if (observerInstance.current) {
+        observerInstance.current.disconnect()
       }
     }
-  }, [onIntersection])
+  }, [onIntersection, options])
 
   return { lastElementRef }
 }

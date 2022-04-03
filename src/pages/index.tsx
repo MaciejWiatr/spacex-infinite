@@ -1,12 +1,11 @@
 import { SearchForm } from '@components/molecules/SearchForm'
 import { LaunchList } from '@components/organisms/LaunchList'
-import type { NextPage } from 'next'
-import { PageHeader } from '../components/molecules/PageHeader'
+import { PageHeader } from '@components/molecules/PageHeader'
 
-const Home: NextPage = () => {
+const HomePage = () => {
   return (
     <div className="bg-gray-800">
-      <main className="flex-1 w-full max-w-6xl min-h-screen px-5 mx-auto text-center text-gray-700 md:px-20">
+      <main className="mx-auto min-h-screen w-full max-w-6xl flex-1 px-5 text-center text-gray-700 md:px-20">
         <PageHeader />
         <SearchForm />
         <LaunchList />
@@ -15,4 +14,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default HomePage

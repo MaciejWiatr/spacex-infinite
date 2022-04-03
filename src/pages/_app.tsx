@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { GlobalMetaTags } from '../components/atoms/meta/GlobalMetaTags'
+import { GlobalMetaTags } from '@components/atoms/GlobalMetaTags'
 import { LaunchesProvider } from '@providers/LaunchesProvider'
 
 function MyApp({ Component, pageProps }: AppProps) {
