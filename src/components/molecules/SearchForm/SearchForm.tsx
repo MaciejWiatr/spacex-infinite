@@ -10,12 +10,16 @@ export const SearchForm = () => {
     e.preventDefault()
     if (!inputRef.current) return
 
-    search(inputRef.current.value)
+    search(inputRef.current.value.toString())
   }
 
   return (
-    <form onSubmit={onSubmit} className="mb-4 flex justify-center py-4">
-      <Input ref={inputRef} placeholder="Search by mission name" />
+    <form onSubmit={onSubmit} className="flex justify-center py-4 mb-4">
+      <Input
+        ref={inputRef}
+        pattern="[a-zA-Z0-9]+"
+        placeholder="Search by mission name"
+      />
     </form>
   )
 }
