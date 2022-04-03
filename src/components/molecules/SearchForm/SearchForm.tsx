@@ -14,12 +14,13 @@ export const SearchForm = () => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex justify-center py-4 mb-4">
+    <form onSubmit={onSubmit} className="flex flex-col items-center py-4 mb-4">
       <Input
         ref={inputRef}
-        pattern="[a-zA-Z0-9]+"
+        pattern="[a-zA-Z0-9 ]+"
         placeholder="Search by mission name"
       />
+      <p className="block mt-1 text-sm">Special characters are not supported</p>
     </form>
   )
 }

@@ -1,6 +1,6 @@
 import { DEFAULT_FETCH_LIMIT } from '@constants'
 import { GetLaunchesResp, gqClient } from '@graphql'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useState } from 'react'
 
 export const useLaunches = ({ fetchLimit = DEFAULT_FETCH_LIMIT }) => {
@@ -45,6 +45,11 @@ export const useLaunches = ({ fetchLimit = DEFAULT_FETCH_LIMIT }) => {
     setSearhQuery(query)
   }
 
+  const nothingWasFound = useMemo(() => {
+    const launchesEmpty = launches?.length === 0
+    return launchesEmpty && reachedEnd
+  }, [launches, reachedEnd])
+
   // This will run on initial render or when the search query changes
   useEffect(() => {
     // Makes sure that the state was properly reset
@@ -54,5 +59,5 @@ export const useLaunches = ({ fetchLimit = DEFAULT_FETCH_LIMIT }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, launches?.length])
 
-  return { fetchNext, launches, search, isLoading, reachedEnd }
+  return { fetchNext, launches, search, isLoading, reachedEnd, nothingWasFound }
 }

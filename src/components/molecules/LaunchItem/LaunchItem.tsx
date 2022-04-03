@@ -28,10 +28,10 @@ export const LaunchItem = forwardRef(
     return (
       <div
         ref={ref}
-        className="relative w-[80%] border-l-2 border-l-gray-600 py-12 pl-12 text-left hover:cursor-pointer"
+        className="relative w-[80%] border-l-2 border-l-gray-600 py-12 pl-12 text-left"
         data-cy={`item-${id}`}
       >
-        <div className="absolute -left-4 my-auto flex h-8 w-8 items-center justify-center rounded-full bg-white">
+        <div className="absolute flex items-center justify-center w-8 h-8 my-auto bg-white rounded-full -left-4">
           <Icon src={'/images/rocket-icon.png'} />
         </div>
         <div>

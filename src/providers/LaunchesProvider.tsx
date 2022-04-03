@@ -8,6 +8,7 @@ export const LaunchesContext = createContext({
   search: (query: string) => {},
   isLoading: false,
   reachedEnd: false,
+  nothingWasFound: false,
 })
 
 interface ILaunchesProviderProps {

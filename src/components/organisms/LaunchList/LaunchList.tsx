@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { NotFoundIndicator } from '@components/atoms/NotFoundIndicator'
 import { Footer } from '@components/molecules/Footer'
 import { LaunchItem } from '@components/molecules/LaunchItem'
 import { LoadingIndicator } from '@components/molecules/LoadingIndicator'
@@ -6,7 +7,8 @@ import { useInfiniteObserver } from '@hooks'
 import { useLaunchesContext } from '@hooks/useLaunchesContext'
 
 export const LaunchList = () => {
-  const { launches, fetchNext, isLoading, reachedEnd } = useLaunchesContext()
+  const { launches, fetchNext, isLoading, reachedEnd, nothingWasFound } =
+    useLaunchesContext()
   const { lastElementRef } = useInfiniteObserver({ onIntersection: fetchNext })
 
   return (
@@ -24,6 +26,7 @@ export const LaunchList = () => {
           />
         )
       })}
+      {nothingWasFound && <NotFoundIndicator />}
       {isLoading && <LoadingIndicator />}
       {reachedEnd && <Footer />}
     </div>
